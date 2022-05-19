@@ -1,1 +1,1 @@
-web: java -jar target/readl-1.0.war
+web: java -war target/readl-1.0.war
