@@ -1,1 +1,1 @@
-web: java -jar target/readl-1.0.jar --server.port=80
+web: java -jar -Dserver.port=8080 target/*.jar
