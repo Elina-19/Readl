@@ -13,6 +13,6 @@ public interface ReviewsService {
     Review getById(Long id);
     List<ReviewDto> getReviewsAfterDate(Long bookId, LocalDateTime date);
     ReviewDto save(Long authorId, AddReviewForm reviewForm);
-    ReviewDto update(Long reviewId, AddReviewForm reviewForm);
-    void delete(Long reviewId);
+    ReviewDto update(Long authorId, Long reviewId, AddReviewForm reviewForm);
+    void delete(Long authorId, Long reviewId);
 }

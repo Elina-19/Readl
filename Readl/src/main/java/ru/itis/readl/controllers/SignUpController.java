@@ -1,6 +1,7 @@
 package ru.itis.readl.controllers;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +14,7 @@ import ru.itis.readl.services.SignUpService;
 
 import javax.validation.Valid;
 
+@Slf4j
 @RequiredArgsConstructor
 @Controller
 @RequestMapping("/signUp")
@@ -32,6 +34,8 @@ public class SignUpController {
 
     @PostMapping
     public String signUp(@Valid SignUpForm form, BindingResult result, Model model){
+
+        log.info("Attempt of authentication with email: " + form.getEmail());
 
         if (result.hasErrors()){
             model.addAttribute("signUpForm", form);

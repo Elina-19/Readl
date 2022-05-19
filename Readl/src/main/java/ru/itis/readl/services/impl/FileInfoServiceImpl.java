@@ -28,7 +28,7 @@ public class FileInfoServiceImpl implements FileInfoService {
     @Transactional
     @Override
     public FileInfo upload(MultipartFile file) {
-        if (file == null){
+        if (file.getSize() == 0){
             return null;
         }
 

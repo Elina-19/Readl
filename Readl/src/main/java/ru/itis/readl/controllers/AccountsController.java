@@ -37,7 +37,6 @@ public class AccountsController {
     @PostMapping("/favourites")
     public void addBookToFavourites(@AuthenticationPrincipal AccountUserDetails account,
                                     @RequestParam("bookId") Long bookId){
-        System.out.println("herebsvdanvk");
 
         accountsService.addBookToFavourites(account.getAccount().getId(), bookId);
     }
@@ -56,6 +55,6 @@ public class AccountsController {
         model.addAttribute("books", accountsService.getAuthorBooks(
                 account.getAccount().getId()));
 
-        return "myBooks";
+        return "main";
     }
 }

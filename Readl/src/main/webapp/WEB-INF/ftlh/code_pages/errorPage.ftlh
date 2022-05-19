@@ -1,0 +1,10 @@
+<html>
+<head>
+    <title>${statusCode}</title>
+</head>
+<body>
+<div>
+    <h1>${statusCode}</h1>
+</div>
+</body>
+</html>

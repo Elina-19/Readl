@@ -3,10 +3,10 @@
 <#import "/tags/externalBook.ftl" as extBook/>
 
 <@t.layout>
-<#--    <c:if test="${message != null}">-->
-<#--        <div>${message}</div>-->
-<#--    </c:if>-->
-    <#list books as bookP>
-        <@extBook.externalBook book=bookP/>
+    <#if !books?has_content>
+        <h1>Нет книг</h1>
+    </#if>
+    <#list books as book>
+        <@extBook.externalBook book=book/>
     </#list>
 </@t.layout>

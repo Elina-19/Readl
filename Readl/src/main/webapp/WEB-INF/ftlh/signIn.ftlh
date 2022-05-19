@@ -15,7 +15,7 @@
                 <input id="password" class="form-control" type="password" name="password" placeholder="Password">
             </div>
             <div>
-                <a href="<@spring.url relativeUrl="/signInVk"/>">Войти через vk</a>
+                <a href="<@spring.url relativeUrl="/auth/vk"/>">Войти через vk</a>
             </div>
             <br>
             <input class="btn" type="submit" value="Войти">

@@ -6,4 +6,8 @@ public class ReadlForbiddenException extends ReadlServiceException {
     public ReadlForbiddenException() {
         super(HttpStatus.FORBIDDEN, "You haven't access to this page");
     }
+
+    public ReadlForbiddenException(String message) {
+        super(HttpStatus.FORBIDDEN, message);
+    }
 }

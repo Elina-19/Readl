@@ -7,15 +7,20 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.itis.readl.dto.forms.AddBookForm;
 import ru.itis.readl.dto.BookDto;
 import ru.itis.readl.dto.ExtendedBookDto;
+import ru.itis.readl.dto.requests.SearchBookRequest;
 import ru.itis.readl.exceptions.BookNotFoundException;
 import ru.itis.readl.models.Account;
 import ru.itis.readl.models.Book;
 import ru.itis.readl.models.FileInfo;
 import ru.itis.readl.models.Genre;
 import ru.itis.readl.repositories.BooksRepository;
+import ru.itis.readl.repositories.specifications.BookSpecification;
+import ru.itis.readl.repositories.specifications.Book_;
+import ru.itis.readl.repositories.specifications.SearchCriteria;
 import ru.itis.readl.services.AccountsService;
 import ru.itis.readl.services.BooksService;
 import ru.itis.readl.services.FileInfoService;
+import ru.itis.readl.services.GenresService;
 
 import java.util.*;
 
@@ -29,6 +34,7 @@ public class BooksServiceImpl implements BooksService {
 
     private AccountsService accountsService;
     private final FileInfoService fileInfoService;
+    private final GenresService genresService;
 
     @Override
     public List<BookDto> findAll() {
@@ -39,6 +45,34 @@ public class BooksServiceImpl implements BooksService {
     public List<BookDto> search(String search) {
         return from(booksRepository
                 .findAllByNameLike(search.toLowerCase()));
+    }
+
+    @Override
+    public List<BookDto> getBooksBySearchRequest(SearchBookRequest searchBookRequest) {
+
+        BookSpecification specification = new BookSpecification();
+        addSearchCriteria(specification, searchBookRequest);
+
+        return from(booksRepository.findAll(specification));
+    }
+
+    private void addSearchCriteria(BookSpecification specification, SearchBookRequest searchRequest){
+        if (searchRequest.getName() != null){
+            specification.add(
+                    new SearchCriteria(Book_.NAME, searchRequest.getName(),
+                            SearchCriteria.SearchOperation.LIKE));
+        }
+
+        if (searchRequest.getGenres() != null) {
+            Set<Genre> genres = genresService.getGenresByRequest(searchRequest.getGenres());
+
+            for (Genre genre : genres) {
+                specification.add(
+                        new SearchCriteria(Book_.GENRES, genre,
+                                SearchCriteria.SearchOperation.IN)
+                );
+            }
+        }
     }
 
     @Transactional
@@ -83,6 +117,11 @@ public class BooksServiceImpl implements BooksService {
         }
 
         return bookDto;
+    }
+
+    @Override
+    public List<BookDto> findByGenre(String genre) {
+        return from(booksRepository.findByGenre(genre));
     }
 
     private Set<Genre> getGenres(String[] idGenres){

@@ -9,7 +9,7 @@ import java.util.Collection;
 
 public class AccountUserDetails implements UserDetails {
 
-    private final Account account;
+    private Account account;
 
     public AccountUserDetails(Account account){
         this.account = account;
@@ -52,5 +52,9 @@ public class AccountUserDetails implements UserDetails {
 
     public Account getAccount(){
         return account;
+    }
+
+    public void setAccount(Account account){
+        this.account = account;
     }
 }

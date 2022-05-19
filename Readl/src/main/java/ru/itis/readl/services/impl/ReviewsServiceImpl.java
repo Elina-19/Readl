@@ -56,13 +56,6 @@ public class ReviewsServiceImpl implements ReviewsService {
 
         return from(reviewsRepository
                 .findAllByBookAndDateAfter(book, date));
-
-//        return from(booksService
-//                .getById(bookId)
-//                .getReviews()
-//                .stream()
-//                .filter(e -> e.getDate().after(date))
-//                .collect(Collectors.toList()));
     }
 
     @Override
@@ -79,18 +72,23 @@ public class ReviewsServiceImpl implements ReviewsService {
     }
 
     @Override
-    public ReviewDto update(Long reviewId, AddReviewForm reviewForm) {
-        Review review = getById(reviewId);
+    public ReviewDto update(Long authorId, Long reviewId, AddReviewForm reviewForm) {
+        Review review = getByIdAndAuthorId(reviewId, authorId);
         review.setContent(reviewForm.getContent());
 
         return from(reviewsRepository.save(review));
     }
 
     @Override
-    public void delete(Long reviewId) {
-        Review review = getById(reviewId);
+    public void delete(Long authorId, Long reviewId) {
+        Review review = getByIdAndAuthorId(authorId, reviewId);
         review.setIsDeleted(true);
 
         reviewsRepository.save(review);
+    }
+
+    public Review getByIdAndAuthorId(Long id, Long authorId){
+        return reviewsRepository.findAllByIdAndAuthorId(id, authorId)
+                .orElseThrow(ReviewNotFoundException::new);
     }
 }

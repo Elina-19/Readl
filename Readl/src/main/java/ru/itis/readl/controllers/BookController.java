@@ -1,20 +1,25 @@
 package ru.itis.readl.controllers;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.MimeTypeUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import ru.itis.readl.dto.BookDto;
 import ru.itis.readl.dto.forms.AddBookForm;
+import ru.itis.readl.dto.requests.SearchBookRequest;
 import ru.itis.readl.security.details.AccountUserDetails;
 import ru.itis.readl.services.BooksService;
 import ru.itis.readl.services.GenresService;
-import ru.itis.readl.services.ReviewsService;
 import ru.itis.readl.utils.UserDetailsHelper;
 
+import javax.activation.MimeType;
 import javax.validation.Valid;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Controller
@@ -76,5 +81,18 @@ public class BookController {
         model.addAttribute("bookId", bookId);
 
         return "reviews";
+    }
+
+    @GetMapping(value = "/genre", produces = MimeTypeUtils.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<BookDto>> getBooksByGenre(@RequestParam("genre") String genre){
+        return ResponseEntity.ok()
+                .body(booksService.findByGenre(genre));
+    }
+
+    @PostMapping("/search")
+    public String getBooksBySearchRequest(SearchBookRequest searchBookRequest, Model model){
+        model.addAttribute("books", booksService.getBooksBySearchRequest(searchBookRequest));
+
+        return "main";
     }
 }

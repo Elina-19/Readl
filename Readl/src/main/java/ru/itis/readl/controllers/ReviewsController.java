@@ -7,13 +7,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import ru.itis.readl.converters.DateConverter;
 import ru.itis.readl.dto.ReviewDto;
 import ru.itis.readl.dto.forms.AddReviewForm;
 import ru.itis.readl.security.details.AccountUserDetails;
 import ru.itis.readl.services.ReviewsService;
 
 import javax.validation.Valid;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -27,6 +27,7 @@ public class ReviewsController {
     @GetMapping
     public ResponseEntity<List<ReviewDto>> getReviews(@RequestParam("id") Long bookId,
                                                       @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime date){
+
         return ResponseEntity.ok(
                 reviewsService.getReviewsAfterDate(bookId, date));
     }
@@ -44,18 +45,21 @@ public class ReviewsController {
 
     @PreAuthorize("isAuthenticated()")
     @PutMapping("/{review-id}")
-    public ResponseEntity<ReviewDto> update(@PathVariable("review-id") Long reviewId,
+    public ResponseEntity<ReviewDto> update(@AuthenticationPrincipal AccountUserDetails account,
+                                            @PathVariable("review-id") Long reviewId,
                                             @Valid @RequestBody AddReviewForm reviewDto){
 
         return ResponseEntity
                 .status(HttpStatus.ACCEPTED)
-                .body(reviewsService.update(reviewId, reviewDto));
+                .body(reviewsService.update(account.getAccount().getId(), reviewId, reviewDto));
     }
 
     @PreAuthorize("isAuthenticated()")
     @DeleteMapping("/{review-id}")
-    public ResponseEntity<?> delete(@PathVariable("review-id") Long reviewId){
-        reviewsService.delete(reviewId);
+    public ResponseEntity<?> delete(@AuthenticationPrincipal AccountUserDetails account,
+                                    @PathVariable("review-id") Long reviewId){
+
+        reviewsService.delete(account.getAccount().getId(), reviewId);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 }
