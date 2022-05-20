@@ -12,7 +12,7 @@
     <groupId>ru.itis</groupId>
     <artifactId>readl</artifactId>
     <version>1.0</version>
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
     <name>Readl</name>
 
     <properties>
