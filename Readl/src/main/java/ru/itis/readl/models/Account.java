@@ -3,7 +3,6 @@ package ru.itis.readl.models;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Set;
 
 @ToString(exclude = {"followers", "following", "authorBooks", "favouriteBooks"})
@@ -26,12 +25,10 @@ public class Account {
     @Column(nullable = false)
     private String password;
 
-//    private String imagePath;
     @OneToOne
     @JoinColumn(name = "file_info_id", referencedColumnName = "id")
     private FileInfo image;
 
-//    private String uuid;
     private String token;
 
     @ManyToMany

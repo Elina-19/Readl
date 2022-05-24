@@ -9,10 +9,17 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface ReviewsService {
+
     List<ReviewDto> getReviews(Long bookId);
+
     Review getById(Long id);
+
     List<ReviewDto> getReviewsAfterDate(Long bookId, LocalDateTime date);
+
     ReviewDto save(Long authorId, AddReviewForm reviewForm);
+
     ReviewDto update(Long authorId, Long reviewId, AddReviewForm reviewForm);
+
     void delete(Long authorId, Long reviewId);
+
 }

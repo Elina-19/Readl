@@ -11,4 +11,6 @@ public interface GenresService {
 
     Set<Genre> getGenresByRequest(List<String> genres);
 
+    Genre getGenreById(Integer id);
+
 }

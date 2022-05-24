@@ -23,7 +23,7 @@ import java.io.IOException;
 @Component
 public class VkAuthenticationFilter extends OncePerRequestFilter {
 
-    private final static RequestMatcher logoutRequest = new AntPathRequestMatcher("/auth/vk", "GET");
+    private final static RequestMatcher authRequest = new AntPathRequestMatcher("/auth/vk", "GET");
 
     private final VkSignInService vkSignInService;
 
@@ -31,7 +31,7 @@ public class VkAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
 
-        if (logoutRequest.matches(request)) {
+        if (authRequest.matches(request)) {
             log.debug("Attempt of oAuth with VK");
 
             String code = request.getParameter("code");

@@ -26,10 +26,7 @@ public class ChaptersController {
 
     @GetMapping
     public String getAddChapterPage(@RequestParam("id") Long bookId, Model model){
-
-        //TODO: Поменять, выглядит костыльно
         model.addAttribute("bookId", bookId);
-
         model.addAttribute("addChapterForm", new AddChapterForm());
 
         return "addChapter";
@@ -42,6 +39,7 @@ public class ChaptersController {
         if (result.hasErrors()){
             model.addAttribute("addChapterForm", chapterForm);
             model.addAttribute("bookId", bookId);
+
             return "addChapter";
         }
 

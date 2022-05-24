@@ -152,6 +152,7 @@ a{
 }
 
 .message{
+    margin: auto;
     text-align: center;
 }
 
@@ -181,4 +182,8 @@ a{
 
 .chapter-buttons{
     margin: 0% 30%;
+}
+
+.search_filter{
+    margin-left: 10%;
 }

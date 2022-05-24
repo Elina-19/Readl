@@ -12,4 +12,5 @@ public class RootController {
     public String getRoot() {
         return "redirect:/main";
     }
+
 }

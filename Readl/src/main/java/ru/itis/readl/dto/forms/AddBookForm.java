@@ -22,9 +22,5 @@ public class AddBookForm {
 
     private MultipartFile file;
 
-//    private String imageName;
-//
-//    private Long size;
-
     private String[] genres;
 }

@@ -21,11 +21,11 @@ public class SignUpForm {
 
     @NotBlank(message = "Enter the nickname")
     @Size(min = 3, max = 10, message = "Nickname should have length more than {min} and less than {max}")
-    @Pattern(regexp="[a-zA-Z0-9_\\.\\-]+", message = "Nickname is incorrect")
+    @Pattern(regexp="[a-zA-Z0-9_.\\-]+", message = "Nickname is incorrect")
     private String nickname;
 
     @NotBlank(message = "Enter the email")
-    @Pattern(regexp="[A-Za-z0-9_+-]+@[A-Za-z0-9]+\\.[A-Za-z]{2,6}", message = "Email is incorrect")
+    @Pattern(regexp="[A-Za-z0-9_+\\-.]+@[A-Za-z0-9]+\\.[A-Za-z]{2,6}", message = "Email is incorrect")
     private String email;
 
     @NotBlank(message = "Enter the password")
@@ -35,4 +35,5 @@ public class SignUpForm {
     @NotBlank(message = "Enter the repeat password")
     @Size(min = 6, max = 10, message = "Password should have length more than {min} and less than {max}")
     private String repeatPassword;
+
 }

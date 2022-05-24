@@ -17,7 +17,6 @@ import ru.itis.readl.services.BooksService;
 import ru.itis.readl.services.GenresService;
 import ru.itis.readl.utils.UserDetailsHelper;
 
-import javax.activation.MimeType;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -89,7 +88,14 @@ public class BookController {
                 .body(booksService.findByGenre(genre));
     }
 
-    @PostMapping("/search")
+    @GetMapping("/search/filter")
+    public String getSearchFilterPage(Model model){
+        model.addAttribute("genres", genresService.findAll());
+
+        return "search";
+    }
+
+    @PostMapping("/search/filter")
     public String getBooksBySearchRequest(SearchBookRequest searchBookRequest, Model model){
         model.addAttribute("books", booksService.getBooksBySearchRequest(searchBookRequest));
 

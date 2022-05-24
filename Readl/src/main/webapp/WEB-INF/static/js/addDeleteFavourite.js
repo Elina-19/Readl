@@ -8,8 +8,6 @@ if (button !== null) {
         e.preventDefault();
 
         var xhr = new XMLHttpRequest();
-        // xhr.open('post', url, false);
-        // xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
         if (button.value === add) {
             xhr.open('post', url + "?" + csrf.getAttribute('name') + "=" + csrf.getAttribute('value') +

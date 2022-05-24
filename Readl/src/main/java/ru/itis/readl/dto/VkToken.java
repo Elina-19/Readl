@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class VkToken {
+
     @JsonProperty("user_id")
     private Long userId;
 

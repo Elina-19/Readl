@@ -10,8 +10,12 @@ import java.util.Optional;
 
 public interface ReviewsRepository extends JpaRepository<Review, Long> {
 
-    List<Review> findAllByBookAndDateAfter(Book book, LocalDateTime date);
+    Optional<Review> findByIdAndIsDeleted(Long id, Boolean isDeleted);
 
-    Optional<Review> findAllByIdAndAuthorId(Long id, Long authorId);
+    List<Review> findAllByBookIdAndIsDeletedAndDateAfter(long bookId, Boolean isDeleted, LocalDateTime date);
+
+    Optional<Review> findAllByIdAndAuthorIdAndIsDeleted(Long id, Long authorId, Boolean isDeleted);
+
+    List<Review> findAllByBookIdAndIsDeleted(Long bookId, Boolean isDeleted);
 
 }

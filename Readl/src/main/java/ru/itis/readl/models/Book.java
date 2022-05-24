@@ -27,9 +27,6 @@ public class Book {
     @JoinColumn(name = "author_id")
     private Account author;
 
-//    @Column(name = "path_to_directory_with_content")
-//    private String pathToDirectoryWithContent;
-
     @OneToOne
     @JoinColumn(name = "file_info_id", referencedColumnName = "id")
     private FileInfo image;
@@ -57,9 +54,4 @@ public class Book {
     @OneToMany(mappedBy = "book")
     private Set<Review> reviews;
 
-//    @OneToMany(mappedBy = "book")
-//    private Set<Comment> comments;
-
-//    private Integer numberOfComments;
-//    private Integer numberOfReviews;
 }

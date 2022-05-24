@@ -35,4 +35,11 @@ public class GenresServiceImpl implements GenresService {
 
         return genres;
     }
+
+    @Override
+    public Genre getGenreById(Integer id) {
+        return genresRepository
+                .findById(id)
+                .orElseThrow(GenreNotFoundException::new);
+    }
 }

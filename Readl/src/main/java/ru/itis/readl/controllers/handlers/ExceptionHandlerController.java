@@ -6,13 +6,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.ui.Model;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import ru.itis.readl.exceptions.ReadlForbiddenException;
-import ru.itis.readl.exceptions.ReadlNotFoundException;
 import ru.itis.readl.exceptions.ReadlServiceException;
 import ru.itis.readl.validation.http.ValidationErrorDto;
 import ru.itis.readl.validation.http.ValidationExceptionResponse;
@@ -24,14 +20,14 @@ import java.util.List;
 @ControllerAdvice
 public class ExceptionHandlerController {
 
-//    @ExceptionHandler(Exception.class)
-//    public String onAllExceptions(Exception exception, Model model) {
-//
-//        log.warn("Internal server error exception: ", exception.getMessage());
-//
-//        model.addAttribute("statusCode", HttpStatus.INTERNAL_SERVER_ERROR);
-//        return "code_pages/errorPage";
-//    }
+    @ExceptionHandler(Exception.class)
+    public String onAllExceptions(Exception exception, Model model) {
+
+        log.warn("Internal server error exception: ", exception.getMessage());
+
+        model.addAttribute("statusCode", HttpStatus.INTERNAL_SERVER_ERROR);
+        return "code_pages/errorPage";
+    }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ValidationExceptionResponse> handleValidExceptions(MethodArgumentNotValidException exception){
@@ -51,22 +47,6 @@ public class ExceptionHandlerController {
                 .errors(errors)
                 .build(), HttpStatus.BAD_REQUEST);
     }
-
-//    @ResponseStatus(HttpStatus.NOT_FOUND)
-//    @ExceptionHandler(ReadlNotFoundException.class)
-//    public String handleNotFoundException(ReadlNotFoundException exception){
-//        log.info("NotFound exception: " + exception.getMessage());
-//
-//        return "code_pages/notFound";
-//    }
-//
-//    @ResponseStatus(HttpStatus.FORBIDDEN)
-//    @ExceptionHandler(ReadlForbiddenException.class)
-//    public String handleForbiddenExceptions(ReadlForbiddenException exception){
-//        log.info("Forbidden exception: " + exception.getMessage());
-//
-//        return "code_pages/forbidden";
-//    }
 
     @ExceptionHandler(AccessDeniedException.class)
     public String onAccessDeniedException(AccessDeniedException exception, Model model) {

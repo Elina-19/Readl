@@ -17,3 +17,12 @@ spring.freemarker.prefix=ftlh/
 spring.mvc.static-path-pattern=/static/**
 
 storage.path=storage_path
+
+oauth2.vk.v=5.131
+oauth2.vk.client.id=client_id
+oauth2.vk.client.secret=secret
+oauth2.vk.redirect-url=http://localhost:80/auth/vk
+
+oauth2.vk.api.user.url=https://api.vk.com/method/users.get
+oauth2.vk.api.token.url=https://oauth.vk.com/access_token
+oauth2.vk.api.authorize.url=https://oauth.vk.com/authorize

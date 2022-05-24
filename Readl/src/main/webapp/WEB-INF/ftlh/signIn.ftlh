@@ -5,7 +5,6 @@
     <form method="post">
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
         <div class="sign-form">
-<#--            <c:if test="${error != null}">${error}<br></c:if>-->
             <div class="mb-3">
                 <label for="email" class="form-label">Email:</label>
                 <input id="email" class="form-control" type="email" name="email" placeholder="Email">

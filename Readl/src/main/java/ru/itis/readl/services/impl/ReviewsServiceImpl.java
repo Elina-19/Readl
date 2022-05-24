@@ -13,19 +13,14 @@ import ru.itis.readl.services.AccountsService;
 import ru.itis.readl.services.BooksService;
 import ru.itis.readl.services.ReviewsService;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static ru.itis.readl.dto.ReviewDto.*;
 
 @RequiredArgsConstructor
 @Service
 public class ReviewsServiceImpl implements ReviewsService {
-
-    //TODO: обработать отдачу удаленных рецензий, переписать стримы на запросы в БД
 
     private final ReviewsRepository reviewsRepository;
 
@@ -34,28 +29,21 @@ public class ReviewsServiceImpl implements ReviewsService {
 
     @Override
     public List<ReviewDto> getReviews(Long bookId) {
-
-        return from(booksService
-                .getById(bookId)
-                .getReviews()
-                .stream()
-                .filter(e -> e.getIsDeleted() == false)
-                .collect(Collectors.toList()));
+        return from(reviewsRepository
+                .findAllByBookIdAndIsDeleted(bookId, false));
     }
 
     @Override
     public Review getById(Long id) {
         return reviewsRepository
-                .findById(id)
+                .findByIdAndIsDeleted(id, false)
                 .orElseThrow(ReviewNotFoundException::new);
     }
 
     @Override
     public List<ReviewDto> getReviewsAfterDate(Long bookId, LocalDateTime date) {
-        Book book = booksService.getById(bookId);
-
         return from(reviewsRepository
-                .findAllByBookAndDateAfter(book, date));
+                .findAllByBookIdAndIsDeletedAndDateAfter(bookId, false, date));
     }
 
     @Override
@@ -68,6 +56,7 @@ public class ReviewsServiceImpl implements ReviewsService {
                         .author(account)
                         .content(reviewDto.getContent())
                         .book(book)
+                        .isDeleted(false)
                         .build()));
     }
 
@@ -88,7 +77,7 @@ public class ReviewsServiceImpl implements ReviewsService {
     }
 
     public Review getByIdAndAuthorId(Long id, Long authorId){
-        return reviewsRepository.findAllByIdAndAuthorId(id, authorId)
+        return reviewsRepository.findAllByIdAndAuthorIdAndIsDeleted(id, authorId, false)
                 .orElseThrow(ReviewNotFoundException::new);
     }
 }
