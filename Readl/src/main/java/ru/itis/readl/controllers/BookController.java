@@ -52,6 +52,29 @@ public class BookController {
         return "redirect:/profile";
     }
 
+    @PreAuthorize("isAuthenticated()")
+    @PutMapping("/{book-id}")
+    public String update(@AuthenticationPrincipal AccountUserDetails account, @PathVariable("book-id") Long bookId,
+                         @Valid AddBookForm addBookForm, BindingResult result, Model model){
+
+        if (result.hasErrors()){
+            model.addAttribute("genres", genresService.findAll());
+            model.addAttribute("addBookForm", addBookForm);
+            return "addBook";
+        }
+
+        booksService.update(account.getAccount().getId(), bookId, addBookForm);
+        return "redirect:/profile";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @DeleteMapping("/{book-id}")
+    public String delete(@AuthenticationPrincipal AccountUserDetails account, @PathVariable("book-id") Long bookId){
+        booksService.delete(account.getAccount().getId(), bookId);
+
+        return "redirect:/profile";
+    }
+
     @GetMapping("/search")
     public String search(@RequestParam("query") String search, Model model){
         model.addAttribute("books", booksService.search(search));
@@ -63,7 +86,6 @@ public class BookController {
     public String getBookPage(@PathVariable("book-id") Long id,
                               @AuthenticationPrincipal AccountUserDetails account, Model model){
 
-        //TODO: Брать id на фронте через теги
         if (account != null){
             model.addAttribute("currentUserId", account.getAccount().getId());
         }

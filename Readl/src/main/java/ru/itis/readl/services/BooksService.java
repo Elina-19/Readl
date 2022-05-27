@@ -14,14 +14,19 @@ public interface BooksService {
     List<BookDto> findAll();
 
     List<BookDto> search(String search);
+
     List<BookDto> getBooksBySearchRequest(SearchBookRequest searchBookRequest);
+
     List<BookDto> findByGenre(String genre);
 
     void save(Long authorId, AddBookForm bookForm);
 
-    BookDto getBookDtoById(Long id);
     Book getById(Long id);
 
     ExtendedBookDto getExtendedBook(Account account, Long bookId);
+
+    ExtendedBookDto update(Long authorId, Long bookId, AddBookForm form);
+
+    void delete(Long authorId, Long bookId);
 
 }

@@ -68,12 +68,22 @@
                 </div>
             </#if>
         </div>
+        <@security.authorize access="isAuthenticated()">
+            <#if book.author.id == currentUserId>
+                <div class="mt-5 text-center">
+                    <input id="deleteBook" class="btn" type="submit" value="Удалить книгу"/>
+                </div>
+            </#if>
+        </@security.authorize>
     </div>
     <script>
         date = "${book.dateOfAdding}";
         document.getElementById("date").innerHTML = date.replace('T', ' ').substring(0, 12);
         bookId = ${book.id};
         url = "<@spring.url "/profile/favourites"/>";
+        deleteUtl = "<@spring.url "/books/${book.id}"/>";
     </script>
-    <script src="<@spring.url "/js/addDeleteFavourite.js"/>" charset="utf-8"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="<@spring.url "/js/addDeleteFavourite.js"/>" charset="utf-8"></script>
+    <script type="text/javascript" src="<@spring.url "/js/deleteBook.js"/>"></script>
 </@t.layout>

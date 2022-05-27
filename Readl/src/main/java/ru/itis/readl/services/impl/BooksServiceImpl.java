@@ -85,16 +85,9 @@ public class BooksServiceImpl implements BooksService {
                 .author(account)
                 .name(bookForm.getName())
                 .description(bookForm.getDescription())
-                .numberOfRates(0)
-                .rate(0.0)
                 .genres(getGenres(bookForm.getGenres()))
                 .image(fileInfo)
                 .build());
-    }
-
-    @Override
-    public BookDto getBookDtoById(Long id) {
-        return from(getById(id));
     }
 
     @Override
@@ -116,6 +109,33 @@ public class BooksServiceImpl implements BooksService {
         }
 
         return bookDto;
+    }
+
+    @Override
+    public ExtendedBookDto update(Long authorId, Long bookId, AddBookForm form) {
+        Book book = getByIdAndAuthorId(bookId, authorId);
+
+        FileInfo fileInfo = fileInfoService.upload(form.getFile());
+
+        book.setName(form.getName());
+        book.setDescription(form.getDescription());
+        book.setGenres(getGenres(form.getGenres()));
+        book.setImage(fileInfo);
+
+        return ExtendedBookDto.extendedFrom(booksRepository.save(book));
+    }
+
+    @Override
+    public void delete(Long authorId, Long bookId) {
+        Book book = getByIdAndAuthorId(bookId, authorId);
+
+        booksRepository.delete(book);
+    }
+
+    private Book getByIdAndAuthorId(Long bookId, Long authorId){
+        return booksRepository
+                .findByIdAndAuthorId(bookId, authorId)
+                .orElseThrow(BookNotFoundException::new);
     }
 
     @Override

@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import ru.itis.readl.models.Book;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface BooksRepository extends JpaRepository<Book, Long>, JpaSpecificationExecutor<Book> {
 
@@ -22,5 +23,7 @@ public interface BooksRepository extends JpaRepository<Book, Long>, JpaSpecifica
             "INNER JOIN genre ON genre.id = bgi.genre_id\n" +
             "WHERE genre.name = :genre")
     List<Book> findByGenre(String genre);
+
+    Optional<Book> findByIdAndAuthorId(Long bookId, Long authorId);
 
 }

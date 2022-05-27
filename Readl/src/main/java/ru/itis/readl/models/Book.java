@@ -38,11 +38,6 @@ public class Book {
     @Column(columnDefinition = "text", length = 3000)
     private String description;
 
-    private Double rate;
-
-    @Column(name = "number_of_rates")
-    private Integer numberOfRates;
-
     @ManyToMany
     @JoinTable(name = "book_genre",
             joinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id"),
