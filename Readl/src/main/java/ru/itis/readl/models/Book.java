@@ -35,6 +35,7 @@ public class Book {
     @Column(name = "date_of_adding")
     private Timestamp dateOfAdding;
 
+    @Column(columnDefinition = "text", length = 3000)
     private String description;
 
     private Double rate;

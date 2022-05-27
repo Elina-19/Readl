@@ -4,8 +4,8 @@ import lombok.*;
 
 import javax.persistence.*;
 
-@ToString(exclude = {"chapters", "reviews", "comments"})
-@EqualsAndHashCode(exclude = {"chapters", "reviews", "comments"})
+@ToString(exclude = {"chapters", "reviews"})
+@EqualsAndHashCode(exclude = {"chapters", "reviews"})
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

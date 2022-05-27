@@ -18,6 +18,7 @@ public class AddBookForm {
     @Size(min = 1, max = 50, message = "Name of book should have length more than {min} and less than {max}")
     private String name;
 
+    @Size(max = 3000, message = "Description should have length less than {max}")
     private String description;
 
     private MultipartFile file;

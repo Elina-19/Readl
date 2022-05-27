@@ -31,7 +31,7 @@ public class Review {
     @JoinColumn(name = "book_id")
     private Book book;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "text")
     private String content;
 
     @Column(name = "is_deleted", columnDefinition = "bool default false")

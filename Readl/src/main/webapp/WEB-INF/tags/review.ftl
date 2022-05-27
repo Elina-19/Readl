@@ -2,7 +2,6 @@
     <div class="review">
         <div class="row border-bottom">
             <div class="col-9">${review.author.nickname}</div>
-            <#--        <div class="col-3">${review.date}</div>-->
         </div>
         <div>${review.content}</div>
     </div>

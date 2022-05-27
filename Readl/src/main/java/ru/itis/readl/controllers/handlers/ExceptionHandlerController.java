@@ -23,7 +23,7 @@ public class ExceptionHandlerController {
     @ExceptionHandler(Exception.class)
     public String onAllExceptions(Exception exception, Model model) {
 
-        log.warn("Internal server error exception: ", exception.getMessage());
+        log.error("Internal server error exception: ", exception.getMessage());
 
         model.addAttribute("statusCode", HttpStatus.INTERNAL_SERVER_ERROR);
         return "code_pages/errorPage";

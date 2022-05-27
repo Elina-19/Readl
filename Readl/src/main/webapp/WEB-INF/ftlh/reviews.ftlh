@@ -20,7 +20,6 @@
     <div id="empty"></div>
     <div id="reviews"></div>
     <script>
-        // csrf token
         bookId=${bookId};
         urlGet="<@spring.url "/reviews"/>";
         urlSend="<@spring.url "/reviews"/>";

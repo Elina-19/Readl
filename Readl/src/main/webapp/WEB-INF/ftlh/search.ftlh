@@ -9,6 +9,7 @@
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
             <ul class="genres">
                 Выберите жанры
+                <br>
                 <#list genres as genre>
                     <input name="genres" class="form-check-input me-1" type="checkbox" value="${genre.id}">
                     ${genre.name}

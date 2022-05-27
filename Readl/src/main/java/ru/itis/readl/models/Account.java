@@ -5,8 +5,8 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.Set;
 
-@ToString(exclude = {"followers", "following", "authorBooks", "favouriteBooks"})
-@EqualsAndHashCode(exclude = {"followers", "following", "authorBooks", "favouriteBooks"})
+@ToString(exclude = {"authorBooks", "favouriteBooks"})
+@EqualsAndHashCode(exclude = {"authorBooks", "favouriteBooks"})
 @Data
 @Builder
 @NoArgsConstructor
@@ -30,15 +30,6 @@ public class Account {
     private FileInfo image;
 
     private String token;
-
-    @ManyToMany
-    @JoinTable(name = "followers_following",
-            joinColumns = @JoinColumn(name = "follower_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "following_id", referencedColumnName = "id"))
-    private Set<Account> followers;
-
-    @ManyToMany(mappedBy = "followers")
-    private Set<Account> following;
 
     @OneToMany(mappedBy = "author")
     private Set<Book> authorBooks;

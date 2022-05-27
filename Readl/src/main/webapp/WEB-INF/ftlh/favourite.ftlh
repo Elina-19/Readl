@@ -3,11 +3,6 @@
 <#import "/tags/externalBook.ftl" as extBook/>
 
 <@t.layout>
-<#--    <c:if test="${message != null}">-->
-<#--        <div class="message">-->
-<#--            ${message}-->
-<#--        </div>-->
-<#--    </c:if>-->
     <#list books as book>
         <@extBook.externalBook book=book/>
     </#list>

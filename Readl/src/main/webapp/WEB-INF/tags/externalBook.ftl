@@ -10,9 +10,7 @@
                 <button class="btn" type="button">
                     <a href="<@spring.url relativeUrl="/books/${book.id}"/>">${book.name}</a>
                 </button>
-                <div class="book-describe">
-                    <h4>${book.description}</h4>
-                </div>
+                <h4 class="book-describe">${book.description}</h4>
             </div>
         </div>
     </div>

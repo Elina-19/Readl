@@ -21,7 +21,7 @@ public class SignUpForm {
 
     @NotBlank(message = "Enter the nickname")
     @Size(min = 3, max = 10, message = "Nickname should have length more than {min} and less than {max}")
-    @Pattern(regexp="[a-zA-Z0-9_.\\-]+", message = "Nickname is incorrect")
+    @Pattern(regexp="[a-zA-Zа-яА-Я0-9_.\\-]+", message = "Nickname is incorrect")
     private String nickname;
 
     @NotBlank(message = "Enter the email")

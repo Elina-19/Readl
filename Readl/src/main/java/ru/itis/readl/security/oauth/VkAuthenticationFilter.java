@@ -40,7 +40,7 @@ public class VkAuthenticationFilter extends OncePerRequestFilter {
                 VkAuthentication authentication = new VkAuthentication(code);
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }else {
-                response.sendRedirect(request.getContextPath() + vkSignInService.getAuthorizationPath());
+                response.sendRedirect(vkSignInService.getAuthorizationPath());
                 return;
             }
         }

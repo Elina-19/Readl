@@ -10,20 +10,15 @@
             <#list spring.status.errorMessages as error>
                 <p class="error">${error}</p>
             </#list>
-<#--            <c:if test="${error != null}">-->
-<#--                <h5>${error}</h5>-->
-<#--            </c:if>-->
             <input type="hidden" name="book-id" value="${bookId}">
             <div>
                 <label class="labels">Название главы</label>
                 <@spring.formInput "addChapterForm.name" "class='form-control' placeholder='Название'"/>
                 <@spring.showErrors "<br>" "error"/>
-<#--                <input type="text" class="form-control" name="name" placeholder="Название">-->
             </div>
             <div class="row mt-4">
                 <@spring.formInput "addChapterForm.file" "class='form-control' placeholder='Загруить главу'" "file"/>
                 <@spring.showErrors "<br>" "error"/>
-<#--                <input type="file" class="btn col-md-4" name="file" placeholder="Загрузить главу">-->
                 <div class="col-md-4">
                     <input class="btn" type="submit" value="Добавить главу">
                 </div>

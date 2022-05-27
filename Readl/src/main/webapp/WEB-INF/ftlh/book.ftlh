@@ -3,10 +3,6 @@
 <#assign security=JspTaglibs["http://www.springframework.org/security/tags"]/>
 
 <@t.layout>
-<#--    <c:if test="${message != null}">-->
-<#--        <h1 class="message">${message}</h1>-->
-<#--    </c:if>-->
-<#--    <c:if test="${message == null}">-->
     <div class="book">
         <input id="csrf" type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
         <div class="row">
@@ -15,14 +11,10 @@
                     <#if book.fileStorageName?has_content>
                         <img class="d-flex mt-5 image-book" src="<@spring.url relativeUrl="/files/${book.fileStorageName}"/>"/>
                     </#if>
-<#--                    <iframe class="d-flex mt-5 image-book" scrolling="no" src="<@spring.url "/downloadImage?id=${book.id}"/>"></iframe>-->
                     <div class="row">
                         <div class="btn mt-5 text-center" type="button">
                             <a href="<@spring.url "/books/${book.id}/reviews"/>">Рецензии</a>
                         </div>
-<#--<%--                        <div class="btn mt-5 text-center col-6" type="button">--%>-->
-<#--<%--                            <a href="<c:url value="/bookComments?id=${book.id}"/>">Комментарии</a>--%>-->
-<#--<%--                        </div>--%>-->
                         <@security.authorize access="isAuthenticated()">
                         <div class="mt-5 text-center col-6">
                             <#if book.isFavourite>
@@ -30,9 +22,6 @@
                             <#else>
                                 <input id="button" class="btn" type="submit" value="Добавить">
                             </#if>
-<#--                            <div class="mt-5 text-center col-6">-->
-<#--                                <input id="button" class="btn" type="submit" value="${status}">-->
-<#--                            </div>-->
                         </div>
                         </@security.authorize>
                     </div>
@@ -82,7 +71,7 @@
     </div>
     <script>
         date = "${book.dateOfAdding}";
-        document.getElementById("date").innerHTML = date.substring(0, 16);
+        document.getElementById("date").innerHTML = date.replace('T', ' ').substring(0, 12);
         bookId = ${book.id};
         url = "<@spring.url "/profile/favourites"/>";
     </script>
