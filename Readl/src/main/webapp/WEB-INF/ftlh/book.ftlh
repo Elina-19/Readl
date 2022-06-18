@@ -18,9 +18,9 @@
                         <@security.authorize access="isAuthenticated()">
                         <div class="mt-5 text-center col-6">
                             <#if book.isFavourite>
-                                <input id="button" class="btn" type="submit" value="Удалить">
+                                <input id="buttonFav" class="btn" type="submit" value="Удалить">
                             <#else>
-                                <input id="button" class="btn" type="submit" value="Добавить">
+                                <input id="buttonFav" class="btn" type="submit" value="Добавить">
                             </#if>
                         </div>
                         </@security.authorize>
@@ -81,7 +81,7 @@
         document.getElementById("date").innerHTML = date.replace('T', ' ').substring(0, 12);
         bookId = ${book.id};
         url = "<@spring.url "/profile/favourites"/>";
-        deleteUtl = "<@spring.url "/books/${book.id}"/>";
+        deleteUrl = "<@spring.url "/books/${book.id}"/>";
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="<@spring.url "/js/addDeleteFavourite.js"/>" charset="utf-8"></script>

@@ -39,7 +39,7 @@ public class Specifications {
                 }
             }
 
-            return join != null ? join.get(searchField) : null;
+            return join.get(searchField);
         } else {
             return root.get(searchField);
         }

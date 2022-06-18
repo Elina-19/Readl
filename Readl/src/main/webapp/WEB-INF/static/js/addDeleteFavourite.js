@@ -1,4 +1,4 @@
-button = document.getElementById('button');
+button = document.getElementById('buttonFav');
 csrf = document.getElementById('csrf');
 const add = "Добавить";
 const del = "Удалить";
